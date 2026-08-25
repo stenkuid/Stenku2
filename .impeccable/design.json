@@ -33,6 +33,21 @@
           "oklch(88% 0.01 250)",
           "oklch(96% 0.005 250)"
         ]
+      },
+      "error": {
+        "role": "error",
+        "displayName": "Error Red",
+        "canonical": "oklch(62.8% 0.25 29.2)",
+        "tonalRamp": [
+          "oklch(25% 0.08 29.2)",
+          "oklch(35% 0.12 29.2)",
+          "oklch(45% 0.18 29.2)",
+          "oklch(62.8% 0.25 29.2)",
+          "oklch(70% 0.20 29.2)",
+          "oklch(80% 0.15 29.2)",
+          "oklch(90% 0.08 29.2)",
+          "oklch(96% 0.03 29.2)"
+        ]
       }
     },
     "typographyMeta": {

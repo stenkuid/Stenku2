@@ -10,6 +10,8 @@ colors:
   neutral-text: "#CBD5E1"
   neutral-text-primary: "#F8FAFC"
   border-subtle: "#1E293B"
+  error: "#EF4444"
+  error-bg: "rgba(239, 68, 68, 0.1)"
 typography:
   display:
     fontFamily: "Outfit, Inter, sans-serif"
@@ -68,6 +70,9 @@ The palette is named "Tech Slate & Sky Blue". It anchors on deep, cold slate ton
 * **Slate White** (#F8FAFC / `oklch(98.81% 0.005 220)`): Headings and primary text in dark mode.
 * **Slate Muted** (#CBD5E1 / `oklch(85.83% 0.015 224.23)`): Body copy and non-critical label text.
 * **Slate Muted Dark** (#64748B / `oklch(53.25% 0.038 237)`): Text description captions, placeholders, and inactive states.
+
+### Status/Error
+* **Error Red** (#EF4444 / `oklch(62.8% 0.25 29.2)`): Used for validation error texts, alert state outlines, and background container fills in negative states. In light mode, it resolves to #DC2626 for contrast.
 
 ### Named Rules
 **The Accent Rarity Rule.** The vivid sky-blue color (`#0EA5E9`) must represent less than 5% of any page's visible area. It is reserved exclusively for primary actions, focus indicators, and data-flow pipelines.
