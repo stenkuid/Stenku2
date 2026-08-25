@@ -1,0 +1,142 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-08-25T16:50:00Z",
+  "title": "Design System: Stenku",
+  "extensions": {
+    "colorMeta": {
+      "primary": {
+        "role": "primary",
+        "displayName": "Vivid Sky Blue",
+        "canonical": "oklch(67.88% 0.188 238.4)",
+        "tonalRamp": [
+          "oklch(20% 0.05 238.4)",
+          "oklch(35% 0.10 238.4)",
+          "oklch(50% 0.15 238.4)",
+          "oklch(67.88% 0.188 238.4)",
+          "oklch(75% 0.15 238.4)",
+          "oklch(85% 0.10 238.4)",
+          "oklch(92% 0.05 238.4)",
+          "oklch(97% 0.02 238.4)"
+        ]
+      },
+      "neutral-bg": {
+        "role": "neutral",
+        "displayName": "Deep Space Blue",
+        "canonical": "oklch(6.46% 0.026 250)",
+        "tonalRamp": [
+          "oklch(2% 0.01 250)",
+          "oklch(6.46% 0.026 250)",
+          "oklch(15% 0.03 250)",
+          "oklch(30% 0.03 250)",
+          "oklch(50% 0.02 250)",
+          "oklch(70% 0.01 250)",
+          "oklch(88% 0.01 250)",
+          "oklch(96% 0.005 250)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display Outfit",
+        "purpose": "Big headings, section titles, and brand banners."
+      },
+      "body": {
+        "displayName": "Inter Body",
+        "purpose": "General readable paragraphs, lists, and form data."
+      }
+    },
+    "shadows": [
+      {
+        "name": "hover-glow",
+        "value": "0 0 12px rgba(14, 165, 233, 0.15)",
+        "purpose": "Subtle glow response on hover of interactive primary buttons."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-standard",
+        "value": "cubic-bezier(0.4, 0, 0.2, 1)",
+        "purpose": "Standard deceleration curve for state transitions."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "sm",
+        "value": "600px"
+      },
+      {
+        "name": "md",
+        "value": "768px"
+      },
+      {
+        "name": "lg",
+        "value": "1024px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Standard action button for form submissions and primary CTAs.",
+      "html": "<button class=\"ds-btn-primary\">SEND MESSAGE</button>",
+      "css": ".ds-btn-primary { background: #0EA5E9; color: #05070F; font-family: 'Inter', sans-serif; font-size: 0.875rem; font-weight: 600; letter-spacing: 0.05em; padding: 12px 32px; border: none; border-radius: 6px; cursor: pointer; transition: background 0.2s cubic-bezier(0.4, 0, 0.2, 1), transform 0.1s ease; } .ds-btn-primary:hover { background: #38BDF8; box-shadow: 0 0 12px rgba(14, 165, 233, 0.15); } .ds-btn-primary:active { transform: scale(0.98); }"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Secondary action button for fallbacks and navigation links.",
+      "html": "<button class=\"ds-btn-secondary\">LEARN MORE</button>",
+      "css": ".ds-btn-secondary { background: #0B0E17; color: #F8FAFC; font-family: 'Inter', sans-serif; font-size: 0.875rem; font-weight: 500; letter-spacing: 0.05em; padding: 12px 32px; border: 1px solid #475569; border-radius: 6px; cursor: pointer; transition: background 0.2s, border-color 0.2s; } .ds-btn-secondary:hover { background: #121824; border-color: #F8FAFC; }"
+    },
+    {
+      "name": "Content Card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "Flat card outline used for feature summaries and text containers.",
+      "html": "<div class=\"ds-card\"><h4 class=\"ds-card-title\">WhatsApp CRM</h4><p class=\"ds-card-desc\">Extract structured data directly from customer chats automatically.</p></div>",
+      "css": ".ds-card { background: #0B0E17; border: 1px solid #1E293B; border-radius: 6px; padding: 24px; transition: background 0.2s, border-color 0.2s; } .ds-card:hover { background: #121824; border-color: #38BDF8; } .ds-card-title { font-family: 'Outfit', sans-serif; font-size: 1.25rem; font-weight: 600; color: #F8FAFC; margin: 0 0 8px 0; } .ds-card-desc { font-family: 'Inter', sans-serif; font-size: 0.9rem; color: #CBD5E1; line-height: 1.5; margin: 0; }"
+    },
+    {
+      "name": "Text Input",
+      "kind": "input",
+      "refersTo": "input-field",
+      "description": "Text input field used in interactive contact forms.",
+      "html": "<input type=\"text\" class=\"ds-input\" placeholder=\"e.g. John Doe\" />",
+      "css": ".ds-input { background: #0B0E17; color: #F8FAFC; border: 1px solid #1E293B; border-radius: 6px; padding: 12px 16px; font-family: 'Inter', sans-serif; font-size: 0.9rem; width: 100%; box-sizing: border-box; transition: border-color 0.2s, box-shadow 0.2s; } .ds-input:focus { outline: none; border-color: #0EA5E9; box-shadow: 0 0 0 2px rgba(14, 165, 233, 0.2); } .ds-input::placeholder { color: #64748B; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Technical Ledger",
+    "overview": "\"The Technical Ledger\" is a design system that presents complex automation capabilities with the extreme clarity of an engineering document or accounting ledger. The interface is optimized for decision-makers and operations managers, avoiding distracting decorations, curved gradients, or floating layers. Instead, it relies on high information density, precise alignment, thin structural dividers, and generous, purposeful whitespace.",
+    "keyCharacteristics": [
+      "Technical Rigor: Strict 1px dividers separate content blocks rather than card margins or floating offsets.",
+      "Typographic Contrast: Large, geometric Outfit headlines paired with clean, readable Inter body copy.",
+      "Information Density: Clean tables, node connection charts, and data rows present complexity with pride."
+    ],
+    "rules": [
+      {
+        "name": "The Accent Rarity Rule",
+        "body": "The vivid sky-blue color (#0EA5E9) must represent less than 5% of any page's visible area. It is reserved exclusively for primary actions, focus indicators, and data-flow pipelines.",
+        "section": "colors"
+      },
+      {
+        "name": "The Flat-Grid Rule",
+        "body": "All panels and cards rest on the same visual plane. Do not use drop-shadows to separate surfaces at rest.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do keep cards flat and separate them using thin 1px borders instead of floating shadows.",
+      "Do use strict uppercase labels with 0.05em letter-spacing for all small labels and headers.",
+      "Do ensure line lengths for paragraphs do not exceed 75ch for readability."
+    ],
+    "donts": [
+      "Don't use gradients or multi-colored backgrounds inside layout sections.",
+      "Don't mix circular rounded buttons (pill style) with rectangular inputs; keep all elements at a uniform 6px radius.",
+      "Don't add arbitrary shadows to suggest elevation hierarchies."
+    ]
+  }
+}
