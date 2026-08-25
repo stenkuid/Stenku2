@@ -58,6 +58,14 @@
       "body": {
         "displayName": "Inter Body",
         "purpose": "General readable paragraphs, lists, and form data."
+      },
+      "body-sm": {
+        "displayName": "Inter Body Small",
+        "purpose": "Footnotes, metadata, and supporting micro-descriptions."
+      },
+      "label-sm": {
+        "displayName": "Inter Label Small",
+        "purpose": "Count indicators, numeric notification badges, and pills."
       }
     },
     "shadows": [

@@ -19,14 +19,22 @@ typography:
     fontWeight: 800
     lineHeight: 1.1
     letterSpacing: "-0.02em"
-  body:
-    fontFamily: "Inter, sans-serif"
-    fontSize: "1rem"
-    fontWeight: 400
     lineHeight: 1.6
+  body-sm:
+    fontFamily: "Inter, sans-serif"
+    fontSize: "0.85rem"
+    fontWeight: 400
+    lineHeight: 1.5
+  label-sm:
+    fontFamily: "Inter, sans-serif"
+    fontSize: "0.75rem"
+    fontWeight: 600
+    lineHeight: 1.4
+    letterSpacing: "0.05em"
 rounded:
   sm: "4px"
   md: "6px"
+  full: "9999px"
 spacing:
   container: "1.5rem"
   section: "6rem"
@@ -89,7 +97,9 @@ The display face is mechanical and wide, utilizing tight letter-spacing to build
 * **Headline** (700 weight, `1.75rem`, 1.2 line-height): Used for panel titles and major workflow labels.
 * **Title** (600 weight, `1.25rem`, 1.3 line-height): Used for cards and individual capability items.
 * **Body** (400 weight, `1rem`, 1.6 line-height): Main paragraph text and lists. Standardized line length is limited to a maximum of 75 characters.
-* **Label** (600 weight, `0.75rem`, uppercase, `0.05em` letter-spacing): Used for badges, form label titles, dates, and micro-captions.
+* **Body Small** (400 weight, `0.85rem`, 1.5 line-height): Captions, system descriptions, inline metadata, and auxiliary form labels.
+* **Label** (600 weight, `0.75rem`, uppercase, `0.05em` letter-spacing): Used for section indicators, button text, tables, and dates.
+* **Label Small** (600 weight, `0.75rem`, normal case, `0.05em` letter-spacing): Badges and internal count indicators.
 
 ## Layout
 
@@ -113,7 +123,8 @@ This system is flat-by-default. It rejects floating cards with shadows.
 
 Shapes are geometric, maintaining sharp, low-radius curves to align with the technical theme.
 
-* **Radius:** A standard corner radius of `6px` is applied to buttons, input fields, cards, and feedback alerts. 
+* **Radius:** A standard corner radius of `6px` is applied to buttons, input fields, cards, and feedback alerts.
+* **Pill Radius:** A full pill boundary corner radius of `9999px` is applied exclusively to numeric notification badges, indicator labels, and status pills.
 * **Focus Indicators:** Elements use a sharp `2px` focus outline with a `2px` offset on keyboard focus.
 
 ## Components
