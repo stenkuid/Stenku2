@@ -25,6 +25,10 @@
   --color-error-bg: rgba(220, 38, 38, 0.05);
   --color-error-border: rgba(220, 38, 38, 0.15);
   
+  --color-success: #059669;
+  --color-success-bg: rgba(5, 150, 105, 0.05);
+  --color-success-border: rgba(5, 150, 105, 0.15);
+  
   /* Fonts */
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
   --font-display: 'Outfit', system-ui, -apple-system, sans-serif;
@@ -61,6 +65,10 @@
   --color-error: #EF4444;
   --color-error-bg: rgba(239, 68, 68, 0.1);
   --color-error-border: rgba(239, 68, 68, 0.2);
+  
+  --color-success: #10B981;
+  --color-success-bg: rgba(16, 185, 129, 0.1);
+  --color-success-border: rgba(16, 185, 129, 0.2);
 }
 
 /* Global Reset */

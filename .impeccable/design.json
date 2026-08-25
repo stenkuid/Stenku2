@@ -48,6 +48,21 @@
           "oklch(90% 0.08 29.2)",
           "oklch(96% 0.03 29.2)"
         ]
+      },
+      "success": {
+        "role": "success",
+        "displayName": "Success Green",
+        "canonical": "oklch(72.7% 0.191 150)",
+        "tonalRamp": [
+          "oklch(25% 0.06 150)",
+          "oklch(35% 0.10 150)",
+          "oklch(45% 0.15 150)",
+          "oklch(72.7% 0.191 150)",
+          "oklch(80% 0.15 150)",
+          "oklch(88% 0.10 150)",
+          "oklch(93% 0.05 150)",
+          "oklch(97% 0.02 150)"
+        ]
       }
     },
     "typographyMeta": {

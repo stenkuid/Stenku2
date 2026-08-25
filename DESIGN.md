@@ -12,6 +12,8 @@ colors:
   border-subtle: "#1E293B"
   error: "#EF4444"
   error-bg: "rgba(239, 68, 68, 0.1)"
+  success: "#10B981"
+  success-bg: "rgba(16, 185, 129, 0.1)"
 typography:
   display:
     fontFamily: "Outfit, Inter, sans-serif"
@@ -81,6 +83,7 @@ The palette is named "Tech Slate & Sky Blue". It anchors on deep, cold slate ton
 
 ### Status/Error
 * **Error Red** (#EF4444 / `oklch(62.8% 0.25 29.2)`): Used for validation error texts, alert state outlines, and background container fills in negative states. In light mode, it resolves to #DC2626 for contrast.
+* **Success Green** (#10B981 / `oklch(72.7% 0.191 150)`): Used for positive feedback alerts and successful form submission indicators. In light mode, it resolves to #059669 for contrast.
 
 ### Named Rules
 **The Accent Rarity Rule.** The vivid sky-blue color (`#0EA5E9`) must represent less than 5% of any page's visible area. It is reserved exclusively for primary actions, focus indicators, and data-flow pipelines.
@@ -125,6 +128,7 @@ Shapes are geometric, maintaining sharp, low-radius curves to align with the tec
 
 * **Radius:** A standard corner radius of `6px` is applied to buttons, input fields, cards, and feedback alerts.
 * **Pill Radius:** A full pill boundary corner radius of `9999px` is applied exclusively to numeric notification badges, indicator labels, and status pills.
+* **Decorative Accents:** Core card structures (like the Homepage CTA card and the admin login card) feature a top-aligned `3px` solid accent stripe colored with `var(--accent)`. This is purely decorative, anchoring block segments visually.
 * **Focus Indicators:** Elements use a sharp `2px` focus outline with a `2px` offset on keyboard focus.
 
 ## Components
