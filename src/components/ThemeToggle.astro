@@ -1,0 +1,80 @@
+---
+---
+
+<button id="theme-toggle" aria-label="Toggle theme" class="theme-toggle" type="button">
+  <!-- Sun Icon (shows in Dark Mode) -->
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="sun-icon">
+    <circle cx="12" cy="12" r="4"></circle>
+    <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
+  </svg>
+  
+  <!-- Moon Icon (shows in Light Mode) -->
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="moon-icon">
+    <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+  </svg>
+</button>
+
+<style>
+  .theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: var(--border-radius);
+    border: 1px solid var(--border-subtle);
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    transition: background-color var(--transition-fast), border-color var(--transition-fast);
+  }
+
+  .theme-toggle:hover {
+    background-color: var(--surface);
+    border-color: var(--border-strong);
+  }
+
+  .theme-toggle svg {
+    width: 1.125rem;
+    height: 1.125rem;
+  }
+
+  /* SVG toggling logic based on data-theme attribute */
+  .sun-icon {
+    display: none;
+  }
+  .moon-icon {
+    display: block;
+  }
+
+  :global([data-theme="dark"]) .sun-icon {
+    display: block;
+  }
+  
+  :global([data-theme="dark"]) .moon-icon {
+    display: none;
+  }
+</style>
+
+<script>
+  // Script executes client-side to bind click listener
+  const toggleTheme = () => {
+    const currentTheme = document.documentElement.getAttribute('data-theme');
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    
+    document.documentElement.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+  };
+
+  const bindToggle = () => {
+    const toggleButton = document.getElementById('theme-toggle');
+    if (toggleButton) {
+      toggleButton.addEventListener('click', toggleTheme);
+    }
+  };
+
+  // Run on page load
+  bindToggle();
+
+  // Run on transitions/re-loads if any Astro router is used
+  document.addEventListener('astro:after-swap', bindToggle);
+</script>

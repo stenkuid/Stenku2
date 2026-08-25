@@ -1,0 +1,8 @@
+name = "stenku2"
+compatibility_date = "2026-08-25"
+pages_build_output_dir = "dist"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "Stenku2"
+database_id = "9913c184-f66d-435a-b1ef-0739d8733876"

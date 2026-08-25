@@ -1,0 +1,60 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  canonicalURL?: string;
+  ogImage?: string;
+}
+
+const {
+  title,
+  description,
+  canonicalURL = Astro.url.href,
+  ogImage = '/images/og-image.jpg' // Default placeholder if none is passed
+} = Astro.props;
+
+// Construct full absolute URL for the canonical and OG tags
+const siteUrl = Astro.site ? Astro.site.href.replace(/\/$/, '') : 'https://stenku.biz.id';
+const absoluteCanonical = new URL(Astro.url.pathname, siteUrl).href;
+const absoluteOgImage = ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage}`;
+
+// Structured Data (Organization Schema JSON-LD)
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "@id": `${siteUrl}/#organization`,
+  "name": "Stenku",
+  "url": siteUrl,
+  "logo": `${siteUrl}/favicon.svg`,
+  "description": "Stenku builds custom AI agents that transform internal conversations, workflows, and scattered operational knowledge into structured operational intelligence.",
+  "sameAs": [] // Can be filled in with social handles later if needed
+};
+---
+
+<!-- Canonical URL -->
+<link rel="canonical" href={absoluteCanonical} />
+
+<!-- Primary Meta Tags -->
+<title>{title}</title>
+<meta name="title" content={title} />
+<meta name="description" content={description} />
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website" />
+<meta property="og:url" content={absoluteCanonical} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={absoluteOgImage} />
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image" />
+<meta property="twitter:url" content={absoluteCanonical} />
+<meta property="twitter:title" content={title} />
+<meta property="twitter:description" content={description} />
+<meta property="twitter:image" content={absoluteOgImage} />
+
+<!-- Sitemap link -->
+<link rel="sitemap" href="/sitemap-index.xml" />
+
+<!-- Structured Data -->
+<script type="application/ld+json" is:inline set:html={JSON.stringify(organizationSchema)} />

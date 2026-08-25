@@ -1,0 +1,126 @@
+---
+import SectionHeading from '../components/SectionHeading.astro';
+import Button from '../components/Button.astro';
+import { content } from '../utils/content';
+
+const lang = 'en';
+const t = content[lang].useCases;
+---
+
+<section id="use-cases" class="use-cases-section section-padding">
+  <div class="container">
+    <SectionHeading 
+      tag={t.tag}
+      title={t.title}
+      description={t.description}
+    />
+    
+    <div class="use-cases-grid">
+      {t.items.map((item, index) => {
+        const isCustomAgent = index === 5; // 6th card is the Custom AI Agent
+        
+        return (
+          <div class={`use-case-card ${isCustomAgent ? 'custom-agent-card' : ''}`}>
+            {item.badge && <span class="badge card-badge">{item.badge}</span>}
+            
+            <div class="card-content">
+              <h3 class="use-case-title">{item.title}</h3>
+              <p class="use-case-desc">{item.desc}</p>
+            </div>
+            
+            {isCustomAgent && (
+              <div class="card-action">
+                <Button href="#cta" variant="primary">{t.ctaCustom}</Button>
+              </div>
+            )}
+          </div>
+        );
+      })}
+    </div>
+  </div>
+</section>
+
+<style>
+  .use-cases-section {
+    background-color: var(--bg-primary);
+  }
+
+  .use-cases-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 3.5rem;
+  }
+
+  @media (max-width: 1024px) {
+    .use-cases-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .use-cases-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .use-case-card {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--border-radius);
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1.5rem;
+    min-height: 280px;
+    transition: border-color var(--transition-normal), transform var(--transition-normal);
+  }
+
+  .use-case-card:hover {
+    border-color: var(--border-strong);
+    transform: translateY(-3px);
+  }
+
+  .card-badge {
+    align-self: flex-start;
+    font-size: 0.65rem;
+    margin-bottom: -0.5rem;
+  }
+
+  .card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .use-case-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+  }
+
+  .use-case-desc {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+  }
+
+  /* Specific highlighted styles for Custom AI Agent card */
+  .custom-agent-card {
+    border: 2px solid var(--accent);
+    background-image: radial-gradient(circle at 100% 100%, var(--accent-light) 0%, transparent 50%);
+  }
+  
+  :global([data-theme="dark"]) .custom-agent-card {
+    border-color: var(--accent);
+    background-color: var(--bg-secondary);
+  }
+
+  .custom-agent-card:hover {
+    border-color: var(--accent-hover);
+  }
+
+  .card-action {
+    margin-top: auto;
+  }
+</style>

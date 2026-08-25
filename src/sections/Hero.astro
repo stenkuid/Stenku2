@@ -1,0 +1,298 @@
+---
+import Button from '../components/Button.astro';
+import { content } from '../utils/content';
+
+const lang = 'en';
+const t = content[lang].hero;
+---
+
+<section class="hero-section section-padding">
+  <div class="container hero-container">
+    <!-- Hero Text Copy -->
+    <div class="hero-text-content">
+      <h1 class="hero-title">{t.title}</h1>
+      <p class="hero-subtitle">{t.subtitle}</p>
+      <div class="hero-actions">
+        <Button href="#cta" variant="primary">{t.ctaPrimary}</Button>
+        <Button href="#use-cases" variant="secondary">{t.ctaSecondary}</Button>
+      </div>
+    </div>
+    
+    <!-- Concept Visual Diagram (Conversation -> Intelligence -> Operation) -->
+    <div class="hero-visual">
+      <div class="visual-node node-conversation">
+        <div class="node-header">
+          <span class="node-tag">WhatsApp Message</span>
+          <span class="status-indicator"></span>
+        </div>
+        <div class="node-body">
+          <p class="message-text">"Masuk barang: Produk X 20 unit dari supplier."</p>
+          <div class="message-meta">Sent by Admin | 14:02</div>
+        </div>
+      </div>
+      
+      <div class="visual-arrow-container">
+        <div class="visual-arrow">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="arrow-svg">
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <polyline points="19 12 12 19 5 12"></polyline>
+          </svg>
+        </div>
+      </div>
+      
+      <div class="visual-node node-intelligence">
+        <div class="node-header">
+          <span class="node-tag">Stenku Intelligence</span>
+          <span class="cpu-icon">⚡</span>
+        </div>
+        <div class="node-body">
+          <div class="parsing-output">
+            <div class="parsing-line"><span class="key">Intent:</span> <span class="val">InventoryUpdate</span></div>
+            <div class="parsing-line"><span class="key">Entity:</span> <span class="val">Product X</span></div>
+            <div class="parsing-line"><span class="key">Quantity:</span> <span class="val">20</span></div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="visual-arrow-container">
+        <div class="visual-arrow">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="arrow-svg">
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <polyline points="19 12 12 19 5 12"></polyline>
+          </svg>
+        </div>
+      </div>
+      
+      <div class="visual-node node-operation">
+        <div class="node-header">
+          <span class="node-tag">System Action</span>
+          <span class="db-icon">⚙️</span>
+        </div>
+        <div class="node-body">
+          <div class="operation-db">
+            <div class="db-row success">
+              <span class="db-status">UPDATED</span>
+              <span class="db-action">Inventory Stock Product X +20</span>
+            </div>
+            <div class="db-row success">
+              <span class="db-status">CREATED</span>
+              <span class="db-action">Audit Log #5812</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero-section {
+    padding-top: calc(var(--header-height) + 5rem);
+    background-image: radial-gradient(circle at 80% 20%, var(--surface) 0%, transparent 40%);
+    transition: background-image var(--transition-fast);
+  }
+
+  .hero-container {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  @media (max-width: 1024px) {
+    .hero-container {
+      grid-template-columns: 1fr;
+      gap: 3.5rem;
+      text-align: center;
+    }
+  }
+
+  .hero-text-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+  }
+
+  .hero-title {
+    font-size: 3.5rem;
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.03em;
+    color: var(--text-primary);
+  }
+
+  @media (max-width: 768px) {
+    .hero-title {
+      font-size: 2.5rem;
+    }
+  }
+
+  .hero-subtitle {
+    font-size: 1.25rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    max-width: 600px;
+  }
+
+  @media (max-width: 1024px) {
+    .hero-subtitle {
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+  }
+
+  @media (max-width: 1024px) {
+    .hero-actions {
+      justify-content: center;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .hero-actions {
+      flex-direction: column;
+    }
+  }
+
+  /* Hero Visual Diagram Styles */
+  .hero-visual {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+    max-width: 450px;
+    justify-self: center;
+  }
+
+  .visual-node {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--border-radius);
+    padding: 1.25rem;
+    box-shadow: 0 4px 20px -10px rgba(0, 0, 0, 0.05);
+    transition: transform var(--transition-normal), border-color var(--transition-normal);
+  }
+
+  .visual-node:hover {
+    border-color: var(--border-strong);
+    transform: translateY(-2px);
+  }
+
+  .node-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border-subtle);
+    padding-bottom: 0.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .node-tag {
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+  }
+
+  .status-indicator {
+    width: 8px;
+    height: 8px;
+    background-color: #22C55E;
+    border-radius: 50%;
+  }
+
+  .message-text {
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-primary);
+  }
+
+  .message-meta {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    margin-top: 0.35rem;
+  }
+
+  /* Intelligence parsing node */
+  .parsing-output {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .parsing-line {
+    font-family: monospace;
+    font-size: 0.8rem;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .parsing-line .key {
+    color: var(--text-muted);
+  }
+
+  .parsing-line .val {
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  /* Operations database nodes */
+  .operation-db {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .db-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.8rem;
+    font-family: var(--font-sans);
+  }
+
+  .db-status {
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 0.15rem 0.35rem;
+    border-radius: 3px;
+    background-color: var(--accent-light);
+    color: var(--accent);
+    border: 1px solid var(--border-subtle);
+  }
+
+  .db-action {
+    color: var(--text-primary);
+    font-weight: 500;
+  }
+
+  /* Connective Arrows */
+  .visual-arrow-container {
+    display: flex;
+    justify-content: center;
+    padding: 0.25rem 0;
+  }
+
+  .visual-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    background-color: var(--surface);
+    color: var(--text-muted);
+    border: 1px solid var(--border-subtle);
+  }
+
+  .arrow-svg {
+    width: 1rem;
+    height: 1rem;
+  }
+</style>

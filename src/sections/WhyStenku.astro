@@ -1,0 +1,88 @@
+---
+import SectionHeading from '../components/SectionHeading.astro';
+import { content } from '../utils/content';
+
+const lang = 'en';
+const t = content[lang].whyStenku;
+---
+
+<section class="why-stenku-section section-padding">
+  <div class="container">
+    <SectionHeading 
+      tag={t.tag}
+      title={t.title}
+      description={t.description}
+    />
+    
+    <div class="why-grid">
+      {t.items.map((item) => (
+        <div class="why-card">
+          <h3 class="why-title">{item.title}</h3>
+          <p class="why-desc">{item.desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .why-stenku-section {
+    background-color: var(--bg-primary);
+  }
+
+  .why-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2.5rem;
+    margin-top: 3.5rem;
+  }
+
+  @media (max-width: 768px) {
+    .why-grid {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+  }
+
+  .why-card {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--border-radius);
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    transition: border-color var(--transition-normal);
+  }
+
+  .why-card:hover {
+    border-color: var(--border-strong);
+  }
+
+  .why-title {
+    font-size: 1.35rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--text-primary);
+    position: relative;
+    padding-bottom: 0.5rem;
+  }
+
+  /* Thin visual underlining design detail for premium look */
+  .why-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 2rem;
+    height: 1px;
+    background-color: var(--accent);
+  }
+
+  .why-desc {
+    font-size: 0.925rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    margin-top: 0.5rem;
+  }
+</style>

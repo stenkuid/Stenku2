@@ -1,0 +1,156 @@
+---
+import SectionHeading from '../components/SectionHeading.astro';
+import { content } from '../utils/content';
+
+const lang = 'en';
+const t = content[lang].models;
+---
+
+<section class="models-section section-padding">
+  <div class="container">
+    <SectionHeading 
+      tag={t.tag}
+      title={t.title}
+      description={t.description}
+    />
+    
+    <!-- Model Cards displaying our flexibility points -->
+    <div class="models-points-grid">
+      {t.points.map((point) => (
+        <div class="model-point-card">
+          <h3 class="point-card-title">{point.title}</h3>
+          <p class="point-card-desc">{point.desc}</p>
+        </div>
+      ))}
+    </div>
+
+    <!-- Minimal, technical representation of supported models (not a logo wall) -->
+    <div class="model-tech-landscape">
+      <div class="landscape-header">
+        <span class="landscape-tag">Intelligence Layers</span>
+      </div>
+      <div class="landscape-grid">
+        <div class="landscape-item">
+          <div class="landscape-name">Claude (Anthropic)</div>
+          <div class="landscape-use">Complex reasoning, multi-lingual parsing, deep audit analysis</div>
+        </div>
+        <div class="landscape-item">
+          <div class="landscape-name">GPT-4o / GPT-3.5 (OpenAI)</div>
+          <div class="landscape-use">General task execution, low-latency API hooks, structured JSON formatting</div>
+        </div>
+        <div class="landscape-item">
+          <div class="landscape-name">Gemini (Google)</div>
+          <div class="landscape-use">Large-context document parsing, sheet integration, multi-modal workflows</div>
+        </div>
+        <div class="landscape-item">
+          <div class="landscape-name">DeepSeek (Open-Source)</div>
+          <div class="landscape-use">High-volume classification, cost-efficient entity extraction</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .models-section {
+    background-color: var(--bg-primary);
+  }
+
+  .models-points-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 3.5rem;
+  }
+
+  @media (max-width: 900px) {
+    .models-points-grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+  }
+
+  .model-point-card {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--border-radius);
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    transition: border-color var(--transition-normal);
+  }
+
+  .model-point-card:hover {
+    border-color: var(--border-strong);
+  }
+
+  .point-card-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+  }
+
+  .point-card-desc {
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+  }
+
+  /* Technical Model Landscape Visual Block */
+  .model-tech-landscape {
+    margin-top: 4rem;
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--border-radius);
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .landscape-header {
+    border-bottom: 1px solid var(--border-subtle);
+    padding-bottom: 0.75rem;
+  }
+
+  .landscape-tag {
+    font-family: var(--font-display);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .landscape-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+
+  @media (max-width: 768px) {
+    .landscape-grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+  }
+
+  .landscape-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .landscape-name {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+
+  .landscape-use {
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: var(--text-secondary);
+  }
+</style>

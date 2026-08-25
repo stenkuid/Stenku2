@@ -1,0 +1,75 @@
+---
+interface Props {
+  tag?: string;          // Small marker above the title (e.g., "USE CASES")
+  title: string;         // Main heading text
+  description?: string;  // Supporting text below the heading
+  align?: 'left' | 'center'; // Text alignment
+  className?: string;
+}
+
+const {
+  tag,
+  title,
+  description,
+  align = 'center',
+  className = ''
+} = Astro.props;
+---
+
+<div class={`section-heading align-${align} ${className}`}>
+  {tag && <span class="badge tag">{tag}</span>}
+  <h2 class="heading-title">{title}</h2>
+  {description && <p class="heading-desc">{description}</p>}
+</div>
+
+<style>
+  .section-heading {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 3.5rem;
+    max-width: 720px;
+  }
+
+  .align-center {
+    align-items: center;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .align-left {
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .tag {
+    margin-bottom: 1rem;
+  }
+
+  .heading-title {
+    font-size: 2.25rem;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--text-primary);
+    letter-spacing: -0.02em;
+  }
+
+  @media (max-width: 768px) {
+    .heading-title {
+      font-size: 1.75rem;
+    }
+  }
+
+  .heading-desc {
+    margin-top: 1rem;
+    font-size: 1.125rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+  }
+
+  @media (max-width: 768px) {
+    .heading-desc {
+      font-size: 1rem;
+    }
+  }
+</style>

@@ -1,0 +1,185 @@
+---
+import SectionHeading from '../components/SectionHeading.astro';
+import { content } from '../utils/content';
+
+const lang = 'en';
+const t = content[lang].problem;
+---
+
+<section id="solutions" class="problem-section section-padding">
+  <div class="container">
+    <SectionHeading 
+      tag={t.tag}
+      title={t.title}
+      description={t.description}
+    />
+    
+    <div class="comparison-grid">
+      <!-- Trapped Operations Column -->
+      <div class="comparison-card trapped">
+        <div class="card-header">
+          <div class="card-icon error-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="8" x2="12" y2="12"></line>
+              <line x1="12" y1="16" x2="12.01" y2="16"></line>
+            </svg>
+          </div>
+          <h3 class="comparison-title">{t.trappedTitle}</h3>
+        </div>
+        <ul class="points-list">
+          {t.trappedPoints.map((point) => (
+            <li class="point-item trapped-point">
+              <span class="point-marker">✕</span>
+              <span class="point-text">{point}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+      
+      <!-- Structured Operations Column -->
+      <div class="comparison-card structured">
+        <div class="card-header">
+          <div class="card-icon success-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+              <polyline points="22 4 12 14.01 9 11.01"></polyline>
+            </svg>
+          </div>
+          <h3 class="comparison-title">{t.structuredTitle}</h3>
+        </div>
+        <ul class="points-list">
+          {t.structuredPoints.map((point) => (
+            <li class="point-item structured-point">
+              <span class="point-marker">✓</span>
+              <span class="point-text">{point}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .problem-section {
+    background-color: var(--bg-primary);
+  }
+
+  .comparison-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+    margin-top: 3rem;
+  }
+
+  @media (max-width: 768px) {
+    .comparison-grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+  }
+
+  .comparison-card {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--border-radius);
+    padding: 2.5rem;
+    transition: border-color var(--transition-normal), transform var(--transition-normal);
+  }
+
+  .comparison-card:hover {
+    transform: translateY(-2px);
+  }
+
+  /* Specific color-coding borders for Trapped vs Structured */
+  .trapped {
+    border-left: 3px solid #EF4444; /* Subtle Red indicator */
+  }
+
+  .trapped:hover {
+    border-color: #F87171;
+  }
+
+  .structured {
+    border-left: 3px solid var(--accent); /* Accent indicator */
+  }
+
+  .structured:hover {
+    border-color: var(--border-strong);
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid var(--border-subtle);
+    padding-bottom: 1rem;
+  }
+
+  .card-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+  }
+
+  .card-icon svg {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+
+  .error-icon {
+    background-color: rgba(239, 68, 68, 0.1);
+    color: #EF4444;
+  }
+
+  .success-icon {
+    background-color: var(--accent-light);
+    color: var(--accent);
+  }
+
+  .comparison-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+  }
+
+  .points-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    list-style: none;
+  }
+
+  .point-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    font-size: 0.95rem;
+  }
+
+  .point-marker {
+    font-weight: 700;
+    font-size: 1rem;
+  }
+
+  .trapped-point .point-marker {
+    color: #EF4444;
+  }
+
+  .structured-point .point-marker {
+    color: #10B981; /* Green checkmark color */
+  }
+  
+  :global([data-theme="dark"]) .structured-point .point-marker {
+    color: var(--accent); /* Light blue accent marker in dark mode */
+  }
+
+  .point-text {
+    color: var(--text-secondary);
+    line-height: 1.4;
+  }
+</style>

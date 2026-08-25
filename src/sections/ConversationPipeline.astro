@@ -1,0 +1,431 @@
+---
+import SectionHeading from '../components/SectionHeading.astro';
+import { content } from '../utils/content';
+
+const lang = 'en';
+const t = content[lang].pipeline;
+---
+
+<section class="pipeline-section section-padding">
+  <div class="container">
+    <SectionHeading 
+      tag={t.tag}
+      title={t.title}
+      description={t.description}
+    />
+    
+    <div class="pipeline-visual-container">
+      <!-- 1. CONVERSATION INPUT -->
+      <div class="pipeline-column input-column">
+        <h3 class="column-title">{t.input.title}</h3>
+        <div class="chat-thread">
+          {t.input.messages.map((msg, index) => (
+            <div class="chat-bubble-wrapper" data-index={index}>
+              <div class="chat-bubble">
+                <div class="chat-sender">Group Chat Member</div>
+                <p class="chat-text">"{msg}"</p>
+              </div>
+              <!-- Visual connector dot -->
+              <div class="connector-dot start-dot"></div>
+            </div>
+          ))}
+        </div>
+      </div>
+      
+      <!-- 2. STENKU AI CORE -->
+      <div class="pipeline-column intelligence-column">
+        <h3 class="column-title">{t.intelligence.title}</h3>
+        <div class="ai-processing-box">
+          <div class="ai-header">
+            <span class="pulse-indicator"></span>
+            <span class="ai-status">PROCESSING STREAM</span>
+          </div>
+          <div class="ai-body">
+            <div class="process-steps">
+              {t.intelligence.actions.map((act) => (
+                <div class="process-step">
+                  <svg class="step-checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                  <span>{act}</span>
+                </div>
+              ))}
+            </div>
+            
+            <div class="code-terminal">
+              <span class="terminal-prompt">$</span> <span class="terminal-text">stenku-agent --stream-parse</span>
+              <div class="terminal-output" id="terminal-output">
+                // Hover over messages on the left to inspect extraction
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 3. STRUCTURED OUTPUT -->
+      <div class="pipeline-column output-column">
+        <h3 class="column-title">{t.operation.title}</h3>
+        <div class="operations-thread">
+          {t.operation.records.map((rec, index) => (
+            <div class="op-node-wrapper" data-index={index}>
+              <!-- Visual connector dot -->
+              <div class="connector-dot end-dot"></div>
+              <div class="op-node">
+                <div class="op-label">{rec.label}</div>
+                <div class="op-value">{rec.value}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .pipeline-section {
+    background-color: var(--bg-secondary);
+    border-top: 1px solid var(--border-subtle);
+    border-bottom: 1px solid var(--border-subtle);
+    transition: background-color var(--transition-fast), border-color var(--transition-fast);
+  }
+
+  .pipeline-visual-container {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr 1fr;
+    gap: 3rem;
+    margin-top: 4.5rem;
+    position: relative;
+  }
+
+  @media (max-width: 1024px) {
+    .pipeline-visual-container {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+  }
+
+  .pipeline-column {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .column-title {
+    font-size: 0.875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    border-bottom: 1px solid var(--border-subtle);
+    padding-bottom: 0.5rem;
+  }
+
+  /* 1. CHAT BUBBLE STYLES */
+  .chat-thread {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .chat-bubble-wrapper {
+    position: relative;
+    cursor: pointer;
+  }
+
+  .chat-bubble {
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--border-radius);
+    padding: 1rem 1.25rem;
+    transition: border-color var(--transition-fast), background-color var(--transition-fast), transform var(--transition-fast);
+  }
+
+  .chat-bubble-wrapper:hover .chat-bubble,
+  .chat-bubble-wrapper.active .chat-bubble {
+    border-color: var(--border-strong);
+    background-color: var(--surface);
+    transform: translateX(-4px);
+  }
+
+  .chat-sender {
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    margin-bottom: 0.25rem;
+  }
+
+  .chat-text {
+    font-size: 0.875rem;
+    font-style: italic;
+    color: var(--text-primary);
+  }
+
+  /* 2. AI CORE STYLES */
+  .ai-processing-box {
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    height: 100%;
+  }
+
+  .ai-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-bottom: 1px solid var(--border-subtle);
+    padding-bottom: 0.75rem;
+  }
+
+  .pulse-indicator {
+    width: 6px;
+    height: 6px;
+    background-color: var(--accent);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--accent);
+    animation: pulse 1.5s infinite alternate;
+  }
+
+  @keyframes pulse {
+    0% { transform: scale(0.9); opacity: 0.6; }
+    100% { transform: scale(1.3); opacity: 1; }
+  }
+
+  .ai-status {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: var(--text-primary);
+  }
+
+  .process-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .process-step {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+  }
+
+  .step-checkmark {
+    width: 0.875rem;
+    height: 0.875rem;
+    color: #10B981;
+  }
+  
+  :global([data-theme="dark"]) .step-checkmark {
+    color: var(--accent);
+  }
+
+  .code-terminal {
+    background-color: #0F172A;
+    border-radius: var(--border-radius);
+    padding: 1rem;
+    font-family: monospace;
+    font-size: 0.75rem;
+    color: #F8FAFC;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 120px;
+  }
+
+  .terminal-prompt {
+    color: #38BDF8;
+  }
+
+  .terminal-output {
+    margin-top: 0.5rem;
+    color: #94A3B8;
+    line-height: 1.4;
+    white-space: pre-wrap;
+  }
+
+  /* 3. OUTPUT COLUMN STYLES */
+  .operations-thread {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .op-node-wrapper {
+    position: relative;
+  }
+
+  .op-node {
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--border-radius);
+    padding: 1rem 1.25rem;
+    transition: border-color var(--transition-fast), background-color var(--transition-fast), transform var(--transition-fast);
+  }
+
+  .op-node-wrapper.active .op-node {
+    border-color: var(--border-strong);
+    background-color: var(--surface);
+    transform: translateX(4px);
+  }
+
+  .op-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.25rem;
+  }
+
+  .op-value {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  /* Pipeline connector dots (Desktop-only) */
+  @media (min-width: 1025px) {
+    .connector-dot {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: var(--border-strong);
+      top: 50%;
+      transform: translateY(-50%);
+      transition: background-color var(--transition-fast);
+    }
+    
+    .start-dot {
+      right: -8px;
+    }
+    
+    .end-dot {
+      left: -8px;
+    }
+
+    .chat-bubble-wrapper:hover .start-dot,
+    .chat-bubble-wrapper.active .start-dot {
+      background-color: var(--accent);
+    }
+
+    .op-node-wrapper.active .end-dot {
+      background-color: var(--accent);
+    }
+  }
+
+  @media (max-width: 1024px) {
+    .connector-dot {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  // Dynamic Hover & Click logic to connect inputs to outputs visually
+  const setupPipelineInteraction = () => {
+    const bubbles = document.querySelectorAll('.chat-bubble-wrapper');
+    const outputs = document.querySelectorAll('.op-node-wrapper');
+    const terminal = document.getElementById('terminal-output');
+
+    const schemaOutputs = [
+`{
+  "event": "inventory_inbound",
+  "product": "Product X",
+  "qty": 20,
+  "units": "pcs",
+  "parsed_confidence": 0.99
+}`,
+`{
+  "event": "invoice_payment",
+  "customer": "Budi Hartono",
+  "amount_paid": "100%",
+  "invoice_ref": "1204",
+  "status": "cleared"
+}`,
+`{
+  "event": "alert_low_stock",
+  "product": "Product Y",
+  "current_stock": 5,
+  "threshold": 10,
+  "action": "create_restock_ticket"
+}`
+    ];
+
+    if (!terminal) return;
+
+    let clickedIndex = -1;
+
+    const activateIndex = (index: number) => {
+      bubbles.forEach((b, idx) => {
+        if (idx === index) {
+          b.classList.add('active');
+        } else {
+          b.classList.remove('active');
+        }
+      });
+      
+      outputs.forEach((o, idx) => {
+        if (idx === index) {
+          o.classList.add('active');
+        } else {
+          o.classList.remove('active');
+        }
+      });
+
+      terminal.innerText = schemaOutputs[index] || '';
+    };
+
+    const deactivateAll = () => {
+      bubbles.forEach(b => b.classList.remove('active'));
+      outputs.forEach(o => o.classList.remove('active'));
+      terminal.innerText = '// Hover or tap messages on the left to inspect extraction';
+    };
+
+    bubbles.forEach((bubble) => {
+      const indexStr = bubble.getAttribute('data-index');
+      if (indexStr === null) return;
+      const index = parseInt(indexStr, 10);
+
+      // Hover In
+      bubble.addEventListener('mouseenter', () => {
+        activateIndex(index);
+      });
+
+      // Hover Out
+      bubble.addEventListener('mouseleave', () => {
+        if (clickedIndex !== -1) {
+          activateIndex(clickedIndex);
+        } else {
+          deactivateAll();
+        }
+      });
+
+      // Tap / Click (Persists selection for touch screen accessibility)
+      bubble.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (clickedIndex === index) {
+          clickedIndex = -1;
+          deactivateAll();
+        } else {
+          clickedIndex = index;
+          activateIndex(index);
+        }
+      });
+    });
+
+    // Set default prompt text
+    deactivateAll();
+  };
+
+  setupPipelineInteraction();
+  document.addEventListener('astro:after-swap', setupPipelineInteraction);
+</script>

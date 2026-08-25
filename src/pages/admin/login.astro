@@ -1,0 +1,198 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Button from '../../components/Button.astro';
+
+export const prerender = false;
+
+let errorMsg = '';
+
+// Check if user is already authenticated
+const sessionCookie = Astro.cookies.get('admin_session')?.value;
+if (sessionCookie === 'authenticated') {
+  return Astro.redirect('/admin/dashboard');
+}
+
+// Handle Form Submission POST
+if (Astro.request.method === 'POST') {
+  try {
+    const data = await Astro.request.formData();
+    const username = data.get('username')?.toString().trim();
+    const password = data.get('password')?.toString();
+
+    // Verify credentials
+    if (username === 'kennkurn' && password === 'admin123') {
+      // Set secure HTTP-only cookie
+      Astro.cookies.set('admin_session', 'authenticated', {
+        path: '/',
+        httpOnly: true,
+        secure: true,
+        sameSite: 'strict',
+        maxAge: 60 * 60 * 2, // 2 Hours
+      });
+      return Astro.redirect('/admin/dashboard');
+    } else {
+      errorMsg = 'Invalid username or password.';
+    }
+  } catch (err) {
+    errorMsg = 'Failed to process login request.';
+  }
+}
+---
+
+<Layout title="Admin Login | Stenku" description="Stenku Admin Dashboard Secure Login.">
+  <div class="login-container">
+    <div class="login-card">
+      <div class="login-header">
+        <a href="/" class="logo">STENKU</a>
+        <h1 class="login-title">Admin Console</h1>
+        <p class="login-subtitle">Please enter your master account credentials</p>
+      </div>
+
+      <form method="POST" class="login-form">
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input type="text" id="username" name="username" required autofocus placeholder="e.g. kennkurn" class="form-input" />
+        </div>
+        
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" required placeholder="••••••••" class="form-input" />
+        </div>
+
+        {errorMsg && <div class="error-banner">{errorMsg}</div>}
+
+        <button type="submit" class="submit-btn">Login</button>
+      </form>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .login-container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--bg-primary);
+    padding: 1.5rem;
+  }
+
+  .login-card {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--border-radius);
+    padding: 3rem 2.5rem;
+    width: 100%;
+    max-width: 440px;
+    box-shadow: 0 4px 24px -10px rgba(0,0,0,0.1);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .login-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: var(--accent);
+  }
+
+  .login-header {
+    text-align: center;
+    margin-bottom: 2.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: center;
+  }
+
+  .logo {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    color: var(--text-primary);
+    text-decoration: none;
+    margin-bottom: 0.5rem;
+  }
+
+  .login-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+
+  .login-subtitle {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+  }
+
+  .login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .form-group label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-primary);
+  }
+
+  .form-input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border-radius: var(--border-radius);
+    border: 1px solid var(--border-subtle);
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    transition: border-color var(--transition-fast);
+  }
+
+  .form-input:focus {
+    outline: none;
+    border-color: var(--accent);
+  }
+
+  .error-banner {
+    background-color: rgba(239, 68, 68, 0.1);
+    color: #EF4444;
+    border: 1px solid rgba(239, 68, 68, 0.2);
+    padding: 0.75rem;
+    border-radius: var(--border-radius);
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-align: center;
+  }
+
+  .submit-btn {
+    width: 100%;
+    padding: 0.75rem;
+    border-radius: var(--border-radius);
+    background-color: var(--accent);
+    color: var(--accent-foreground);
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: background-color var(--transition-fast);
+    margin-top: 0.5rem;
+  }
+
+  .submit-btn:hover {
+    background-color: var(--accent-hover);
+  }
+</style>

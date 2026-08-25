@@ -1,0 +1,43 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Hero from '../sections/Hero.astro';
+import Problem from '../sections/Problem.astro';
+import Solution from '../sections/Solution.astro';
+import UseCases from '../sections/UseCases.astro';
+import ConversationPipeline from '../sections/ConversationPipeline.astro';
+import AIModels from '../sections/AIModels.astro';
+import HowItWorks from '../sections/HowItWorks.astro';
+import WhyStenku from '../sections/WhyStenku.astro';
+import CTA from '../sections/CTA.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout 
+  title="Stenku | Custom AI Agents for Business Operations" 
+  description="Stenku builds custom AI agents that transform WhatsApp conversations, manual workflows, and scattered operational knowledge into structured, automated systems."
+>
+  <Navbar />
+  
+  <main id="main-content">
+    <Hero />
+    <Problem />
+    <Solution />
+    <UseCases />
+    <ConversationPipeline />
+    <AIModels />
+    <HowItWorks />
+    <WhyStenku />
+    <CTA />
+  </main>
+  
+  <Footer />
+</Layout>
+
+<style>
+  #main-content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+</style>
