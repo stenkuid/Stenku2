@@ -131,6 +131,7 @@ const t = content[lang].navbar;
 
   /* Mobile hamburger styles */
   .mobile-nav-toggle {
+    position: relative;
     display: none;
     align-items: center;
     justify-content: center;
@@ -141,6 +142,21 @@ const t = content[lang].navbar;
     background-color: var(--bg-secondary);
     color: var(--text-primary);
     transition: background-color var(--transition-fast);
+  }
+
+  /* Expand interactive touch target on mobile viewports for accessibility */
+  @media (max-width: 768px) {
+    .mobile-nav-toggle::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 44px;
+      height: 44px;
+      transform: translate(-50%, -50%);
+      min-width: 44px;
+      min-height: 44px;
+    }
   }
 
   .mobile-nav-toggle:hover {
