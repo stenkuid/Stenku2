@@ -4,7 +4,18 @@ import Button from '../../components/Button.astro';
 
 export const prerender = false;
 
+// Access environment variables from Cloudflare Pages runtime context
+const env = (Astro.locals as any).runtime?.env || {};
+const adminUsername = env.ADMIN_USERNAME;
+const adminPassword = env.ADMIN_PASSWORD;
+
+// Fail-safe validation check
+const isConfigured = !!(adminUsername && adminPassword);
 let errorMsg = '';
+
+if (!isConfigured) {
+  errorMsg = 'Server credentials are not configured. Please contact the administrator.';
+}
 
 // Check if user is already authenticated
 const sessionCookie = Astro.cookies.get('admin_session')?.value;
@@ -14,27 +25,31 @@ if (sessionCookie === 'authenticated') {
 
 // Handle Form Submission POST
 if (Astro.request.method === 'POST') {
-  try {
-    const data = await Astro.request.formData();
-    const username = data.get('username')?.toString().trim();
-    const password = data.get('password')?.toString();
+  if (!isConfigured) {
+    errorMsg = 'Server credentials are not configured. Please contact the administrator.';
+  } else {
+    try {
+      const data = await Astro.request.formData();
+      const username = data.get('username')?.toString().trim();
+      const password = data.get('password')?.toString();
 
-    // Verify credentials
-    if (username === 'kennkurn' && password === 'admin123') {
-      // Set secure HTTP-only cookie
-      Astro.cookies.set('admin_session', 'authenticated', {
-        path: '/',
-        httpOnly: true,
-        secure: true,
-        sameSite: 'strict',
-        maxAge: 60 * 60 * 2, // 2 Hours
-      });
-      return Astro.redirect('/admin/dashboard');
-    } else {
-      errorMsg = 'Invalid username or password.';
+      // Verify credentials against environment variables
+      if (username === adminUsername && password === adminPassword) {
+        // Set secure HTTP-only cookie
+        Astro.cookies.set('admin_session', 'authenticated', {
+          path: '/',
+          httpOnly: true,
+          secure: true,
+          sameSite: 'strict',
+          maxAge: 60 * 60 * 2, // 2 Hours
+        });
+        return Astro.redirect('/admin/dashboard');
+      } else {
+        errorMsg = 'Invalid username or password.';
+      }
+    } catch (err) {
+      errorMsg = 'Failed to process login request.';
     }
-  } catch (err) {
-    errorMsg = 'Failed to process login request.';
   }
 }
 ---
@@ -51,17 +66,17 @@ if (Astro.request.method === 'POST') {
       <form method="POST" class="login-form">
         <div class="form-group">
           <label for="username">Username</label>
-          <input type="text" id="username" name="username" required autofocus placeholder="e.g. kennkurn" class="form-input" />
+          <input type="text" id="username" name="username" required disabled={!isConfigured} autofocus placeholder={isConfigured ? "e.g. kennkurn" : "Configuration required"} class="form-input" />
         </div>
         
         <div class="form-group">
           <label for="password">Password</label>
-          <input type="password" id="password" name="password" required placeholder="••••••••" class="form-input" />
+          <input type="password" id="password" name="password" required disabled={!isConfigured} placeholder={isConfigured ? "••••••••" : "Configuration required"} class="form-input" />
         </div>
 
         {errorMsg && <div class="error-banner">{errorMsg}</div>}
 
-        <button type="submit" class="submit-btn">Login</button>
+        <button type="submit" class="submit-btn" disabled={!isConfigured}>Login</button>
       </form>
     </div>
   </div>
@@ -194,5 +209,12 @@ if (Astro.request.method === 'POST') {
 
   .submit-btn:hover {
     background-color: var(--accent-hover);
+  }
+
+  .form-input:disabled,
+  .submit-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    filter: grayscale(1);
   }
 </style>

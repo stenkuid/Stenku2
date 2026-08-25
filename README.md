@@ -28,7 +28,7 @@ This is the robot's notebook. Every time someone sends a message through the web
 
 ### 4. 🔑 The Shopkeeper's Secret Office (The Admin Dashboard)
 Only the boss (that's you!) has the key to this office. 
-* You type in your secret name (`kennkurn`) and secret password (`admin123`) to unlock the door.
+* You type in your secret name and secret password (configured in your Cloudflare dashboard environment) to unlock the door.
 * Inside, there is a giant table showing every single note the helper robot has written down in **The Big Book of Secrets**!
 
 ---
